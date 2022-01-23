@@ -1,0 +1,112 @@
+{% extends '@!EasyAdmin/page/content.html.twig' %}
+
+{% set deviCreateUrl = ea_url()
+    .setController('App\\Controller\\Admin\\DevisCrudController')
+    .setAction('new') %}
+{% set clientCreateUrl = ea_url()
+    .setController('App\\Controller\\Admin\\ClientCrudController')
+    .setAction('new') %}
+{% set paimentCreateUrl = ea_url()
+    .setController('App\\Controller\\Admin\\PaimentCrudController')
+    .setAction('new') %}
+{% set invoiceCreateUrl = ea_url()
+    .setController('App\\Controller\\Admin\\InvoiceCrudController')
+    .setAction('new') %}
+{% block title %}Cockpit-Dashboard{% endblock %}
+
+{% block content_title %}Dashboard!!!{% endblock %}
+{%  block main %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ asset('bundles/easyadmin/images/flags/FR.png') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Clients</h5>
+                            <p class="card-text">Vous avez eu {{ userCnt}} nouveaux clients ce mois-ci</p>
+                            <p class="card-text">Vous avez en général {{ averageClients }} clients par mois</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ asset('bundles/easyadmin/images/flags/UA.png') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Earnings</h5>
+                            <p class="card-text">Total earned {{ (totalEarnings/100)|number_format(2,'.', ',') }} EUR</p>
+                            <p class="card-text">Total per month - {{ (totalPerMonth/100)|number_format(2,'.', ',') }} EUR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ asset('bundles/easyadmin/images/flags/US.png') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Stat for client</h5>
+                            <p class="card-text">Average per client - {{ (averagePerClient/100)|number_format(2,'.',',') }} EUR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ asset('bundles/easyadmin/images/flags/GR.png') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Best procedure</h5>
+                            <p class="card-text"><a href='{{ procedureUrl }}'> {{ bestProcedure.name }} </a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-2"></div>
+        <div class="col-2">
+            <a href="{{ deviCreateUrl }}">
+                <h1 class="fa fa-clipboard"></h1>
+                <p>Faire un devis</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="{{ clientCreateUrl }}">
+            <h1 class="fa fa-tty"></h1>
+            <p>Ajouter un client</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="{{ paimentCreateUrl }}">
+            <h1 class="fa fa-money-check-alt"></h1>
+            <p>Ajouter un paiment</p>
+            </a>
+        </div>
+        <div class="col-2">
+            <a href="{{ invoiceCreateUrl }}">
+            <h1 class="fa fa-file-invoice-dollar"></h1>
+            <p>Editer une Facture</p>
+            </a>
+        </div>
+        <div class="col-2"></div>
+    </div>
+{% endblock %}

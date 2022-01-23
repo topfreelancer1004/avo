@@ -1,0 +1,32 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %} {{ procedure.name }} {% endblock %}
+
+{% block page_content %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Client</th>
+                {% for m in months %}
+                    <th>{{ m }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for key,payment in payments %}
+            <tr>
+                <td>
+                    {{ clients[key] }}
+                </td>
+                {% for m_key, m_name in months %}
+                    {% if m_key in payment|keys %}
+                        <td>{{ (payment[m_key].amnt/100)|number_format(2,'.',',') }}</td>
+                    {% endif %}
+                    <td></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

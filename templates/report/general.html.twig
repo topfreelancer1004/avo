@@ -1,0 +1,88 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %} Report {% endblock %}
+
+{% block page_content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Procedure</th>
+                {% for m in months %}
+                    <th>{{ m }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for key, proc in d %}
+            <tr>
+                <td>
+                    <a href="{{ ea_url().setRoute('admin_report_by_procedure', {id: procedures[key].id} ) }}">
+                    {{procedures[key]}}
+                    </a>
+                </td>
+                {% for m_key, m_name in months %}
+                    <td>
+                    {% if m_key in proc|keys %}
+                        {{ (proc[m_key][0].amnt/100)|number_format(2,'.',',')  }}
+                    {% else %}
+                    {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                {% for m_key, m_name in months %}
+                    <td>
+                        {% if totals[m_key] is defined%}
+                            {{ (totals[m_key].amnt/100)|number_format(2,'.',',') }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+
+            </tr>
+        </tfoot>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Expences</th>
+            {% for m in months %}
+                <th>{{ m }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, exp in expenses %}
+            <tr>
+                <td>
+                    {{ charges[key].name }}
+                </td>
+                {% for m_key, m_name in months %}
+                    <td>
+                        {% if m_key in exp|keys %}
+                            {{ (exp[m_key][0].amnt/100)|number_format(2,'.',',')  }}
+                        {% else %}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                {% for m_key, m_name in months %}
+                    <td>
+                        {% if expensesMonth[m_key] is defined%}
+                            {{ (expensesMonth[m_key].amnt/100)|number_format(2,'.',',') }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

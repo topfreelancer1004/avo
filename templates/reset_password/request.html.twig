@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login-reg.css') }}">
+{% endblock %}
+{% block body_class %}h100{% endblock %}
+{% block body %}
+<main class="form-signin">
+    <h1 class="h3 mb-3 fw-normal">Reset your password</h1>
+    {% for flashError in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {{ form_start(requestForm) }}
+        <div class="form-floating">
+            {{ form_widget(requestForm.email, {'attr' : {'class' : 'form-control'}}) }}
+            {{ form_label(requestForm.email) }}
+        </div>
+        <small>
+            We we will send you a link to reset your password.
+        </small>
+        <div class="checkbox m-3">
+            Back to <a href="{{ path('app_login') }}">login</a> page
+        </div>
+        <button class="btn btn-lg btn-primary w-100">Send password reset email</button>
+    {{ form_end(requestForm) }}
+</main>
+{% endblock %}

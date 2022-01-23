@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login-reg.css') }}">
+{% endblock %}
+{% block body_class %}h100{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+<main class="form-signin">
+    <h1>Register</h1>
+
+    {{ form_start(registrationForm) }}
+    <div class="form-floating">
+        {{ form_widget(registrationForm.first_name, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(registrationForm.first_name) }}
+        <div class="alert-danger">{{ form_errors(registrationForm.first_name) }}</div>
+    </div>
+    <div class="form-floating">
+        {{ form_widget(registrationForm.last_name, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(registrationForm.last_name) }}
+        <div class="alert-danger">{{ form_errors(registrationForm.last_name) }}</div>
+    </div>
+    <div class="form-floating">
+        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(registrationForm.email) }}
+        <div class="alert-danger">{{ form_errors(registrationForm.email) }}</div>
+    </div>
+    <div class="form-floating">
+        {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(registrationForm.password, "Password") }}
+        <div class="alert-danger">{{ form_errors(registrationForm.password) }}</div>
+    </div>
+    <div class="form-floating">
+        {{ form_widget(registrationForm.plainPassword1, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(registrationForm.plainPassword1, "Confirm") }}
+        <div class="alert-danger">{{ form_errors(registrationForm.plainPassword1) }}</div>
+    </div>
+    <a class="w-50 btn btn-lg btn-secondary" href="{{ path('app_login') }}">Login</a><button type="submit" class="w-50 btn btn-lg btn-primary">Register</button>
+    {{ form_end(registrationForm) }}
+</main>
+{% endblock %}
+
